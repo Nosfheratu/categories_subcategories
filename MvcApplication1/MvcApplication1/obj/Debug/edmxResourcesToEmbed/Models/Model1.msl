@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cat_subModelStoreContainer" CdmEntityContainer="cat_sub">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="cat_subModel.Category">
+        <MappingFragment StoreEntitySet="tbl_categorias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubCategories">
+      <EntityTypeMapping TypeName="cat_subModel.SubCategory">
+        <MappingFragment StoreEntitySet="tbl_subcategorias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Id_Category" ColumnName="Id_Categoria" />
+          <ScalarProperty Name="Name" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

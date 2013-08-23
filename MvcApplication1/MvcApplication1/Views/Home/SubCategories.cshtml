@@ -1,0 +1,26 @@
+﻿@model IEnumerable<MvcApplication1.Models.SubCategory>
+
+@{
+    ViewBag.Title = "Sub-Categorías";
+}
+
+<h2>Sub-Categorías pertenecientes a <b>@ViewBag.Category</b></h2>
+
+<table>
+    <tr>
+        <th>
+            Sub-Categoría
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>@Html.ActionLink("Regresar a Categorías", "Index")</p>

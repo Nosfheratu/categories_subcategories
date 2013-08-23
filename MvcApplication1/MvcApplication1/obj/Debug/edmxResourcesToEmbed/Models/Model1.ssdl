@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cat_subModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="cat_subModelStoreContainer">
+    <EntitySet Name="tbl_categorias" EntityType="cat_subModel.Store.tbl_categorias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tbl_subcategorias" EntityType="cat_subModel.Store.tbl_subcategorias" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_tbl_subcategorias_tbl_categorias" Association="cat_subModel.Store.FK_tbl_subcategorias_tbl_categorias">
+      <End Role="tbl_categorias" EntitySet="tbl_categorias" />
+      <End Role="tbl_subcategorias" EntitySet="tbl_subcategorias" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tbl_categorias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_subcategorias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Categoria" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_tbl_subcategorias_tbl_categorias">
+    <End Role="tbl_categorias" Type="cat_subModel.Store.tbl_categorias" Multiplicity="1" />
+    <End Role="tbl_subcategorias" Type="cat_subModel.Store.tbl_subcategorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_categorias">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_subcategorias">
+        <PropertyRef Name="Id_Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

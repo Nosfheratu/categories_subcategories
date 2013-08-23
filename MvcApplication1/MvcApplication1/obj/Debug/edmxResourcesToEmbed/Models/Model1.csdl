@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cat_subModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="cat_sub" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="cat_subModel.Category" />
+    <EntitySet Name="SubCategories" EntityType="cat_subModel.SubCategory" />
+    <AssociationSet Name="FK_tbl_subcategorias_tbl_categorias" Association="cat_subModel.FK_tbl_subcategorias_tbl_categorias">
+      <End Role="tbl_categorias" EntitySet="Categories" />
+      <End Role="tbl_subcategorias" EntitySet="SubCategories" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="SubCategories" Relationship="cat_subModel.FK_tbl_subcategorias_tbl_categorias" FromRole="tbl_categorias" ToRole="tbl_subcategorias" />
+  </EntityType>
+  <EntityType Name="SubCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Category" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Category" Relationship="cat_subModel.FK_tbl_subcategorias_tbl_categorias" FromRole="tbl_subcategorias" ToRole="tbl_categorias" />
+  </EntityType>
+  <Association Name="FK_tbl_subcategorias_tbl_categorias">
+    <End Role="tbl_categorias" Type="cat_subModel.Category" Multiplicity="1" />
+    <End Role="tbl_subcategorias" Type="cat_subModel.SubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_categorias">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_subcategorias">
+        <PropertyRef Name="Id_Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
