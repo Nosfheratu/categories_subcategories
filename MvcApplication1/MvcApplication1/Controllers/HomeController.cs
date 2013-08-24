@@ -22,12 +22,12 @@ namespace MvcApplication1.Controllers
             
             return View(categories);
         }
-
+        
         public ActionResult SubCategories(int idCategory)
         {
-            var subCategories = Context.Categories.Where(c => c.Id == idCategory).FirstOrDefault().SubCategories.ToList();
-            ViewBag.Category = subCategories.FirstOrDefault().Category.Name;
-            return View(subCategories);
+            var category = Context.Categories.Where(c => c.Id == idCategory).FirstOrDefault();
+            //System.Threading.Thread.Sleep(2500);
+            return PartialView(category);
         }
 
         public ActionResult About()

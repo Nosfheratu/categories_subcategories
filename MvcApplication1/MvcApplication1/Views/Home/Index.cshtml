@@ -11,18 +11,57 @@
         <th>
             Categoría
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Ver Sub-Categorias", "SubCategories", new { idCategory=item.Id })
+            @Html.ActionLink(item.Name, "SubCategories", new { idCategory = item.Id }, new { @class = "category", @idCategory = item.Id })
         </td>
     </tr>
 }
 
 </table>
+<br />
+<div id="loading">
+    <img src='@Url.Content("~/Content/ajax-loader.gif")' alt="Alternate Text" />
+</div>
+<br />
+<div id="subcategories"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        function getRequest(url) {
+            $.ajax({
+                url: url,
+                context: document.body,
+                success: function (data) {
+                    $('#subcategories').html(data);
+                },
+                beforeSend: function () {
+                    $('#loading img').show();
+                },
+                complete: function () {
+                    $('#loading img').hide();
+                },
+                error: function (err) {
+                    $('#subcategories').html(err);
+                }
+            });
+        }
+
+        $('#loading img').hide();
+
+        $('.category').on('click', function (e) {
+            e.preventDefault();
+
+            var id = $(this).attr("idCategory");
+            var url = '@Url.Content("~/Home/SubCategories")?idCategory=' + id;
+
+            getRequest(url);
+
+            return false;
+        });
+    });
+</script>
